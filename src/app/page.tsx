@@ -62,7 +62,7 @@ export default function Home() {
 
       {/* Main Content Area */}
       <div className={styles.contentWrapper}>
-        
+
         {/* Hero Banners */}
         <section className={styles.heroGrid}>
           <div className={`${styles.heroMain} glass`}>
@@ -94,7 +94,7 @@ export default function Home() {
         {/* Spotlight's On Section */}
         <section className={`${styles.curatedSection} ${styles.spotlightBg}`}>
           <div className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>Spotlight's On</h2>
+            <h2 className={styles.sectionTitle}>Spotlight&apos;s On</h2>
           </div>
           <div className={styles.productGrid4}>
             {SPOTLIGHT_PRODUCTS.map(product => (

@@ -52,7 +52,7 @@ const UNMISSABLE_DEALS = [
 export default function FashionCategory() {
   return (
     <div className={styles.container}>
-      
+
       {/* 1. Main Hero Banner */}
       <Link href="/product/signature" className={styles.heroLink}>
         <section className={styles.heroBanner}>
@@ -73,7 +73,7 @@ export default function FashionCategory() {
             <span>00d</span> : <span>01h</span> : <span>27m</span> : <span>01s</span>
           </div>
         </div>
-        
+
         <div className={styles.horizontalScroll}>
           {EXCLUSIVE_SHOES.map((shoe) => (
             <Link href={`/product/${shoe.id}`} key={shoe.id} className={styles.shoeCardLink}>
@@ -88,7 +88,7 @@ export default function FashionCategory() {
               </div>
             </Link>
           ))}
-          
+
           <button className={styles.nextArrow}>→</button>
         </div>
       </section>
@@ -106,7 +106,7 @@ export default function FashionCategory() {
         <Link href="/sale/shoes" className={styles.splitBannerLink}>
           <div className={`${styles.promoBanner} ${styles.promo2}`}>
             <div className={styles.promoText}>
-              <h3>Men's shoes, sandals...</h3>
+              <h3>Men&apos;s shoes, sandals...</h3>
               <p>Min. 65% Off</p>
             </div>
           </div>
