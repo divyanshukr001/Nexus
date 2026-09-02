@@ -1,0 +1,577 @@
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--spacing-6) var(--spacing-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+}
+
+/* 1. Hero Banner */
+.heroLink {
+  display: block;
+  text-decoration: none;
+}
+
+.heroBanner {
+  width: 100%;
+  height: 480px;
+  border-radius: 24px;
+  background: url('https://rukminim2.flixcart.com/fk-p-flap/1600/780/image/b6d0734221bfbfc0.png?q=80') center/cover no-repeat;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.footerBanner {
+  background: url('https://images.unsplash.com/photo-1595950653106-6c9ebd614c3a?w=1200&q=80') center/cover no-repeat;
+  align-items: center;
+  justify-content: center;
+}
+
+.heroBanner:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.3);
+}
+
+.heroBanner::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(to right, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.1) 55%, transparent 100%);
+  z-index: 1;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  text-align: left;
+  color: #fff;
+  padding-left: 60px;
+}
+
+.heroContent h1 {
+  font-size: 3.5rem;
+  font-weight: 900;
+  letter-spacing: 3px;
+  margin-bottom: var(--spacing-3);
+  text-shadow: 2px 4px 12px rgba(0,0,0,0.6);
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.heroBadge {
+  display: inline-block;
+  background: linear-gradient(90deg, #f7b500 0%, #ff6a00 100%);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 3px;
+  padding: 0.4rem 1.2rem;
+  border-radius: 999px;
+  margin-bottom: var(--spacing-3);
+  text-transform: uppercase;
+  box-shadow: 0 4px 15px rgba(247, 181, 0, 0.5);
+}
+
+.heroContent p {
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: var(--spacing-6);
+  letter-spacing: 5px;
+  opacity: 0.9;
+}
+
+.heroButton {
+  background: #fff;
+  color: #111;
+  padding: 0.85rem 2.5rem;
+  font-weight: 800;
+  font-size: 1rem;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+}
+
+.heroButton:hover {
+  background: linear-gradient(90deg, #f7b500, #ff6a00);
+  color: #fff;
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(247, 181, 0, 0.5);
+}
+
+/* 2. Own the Look (Shoes + Timer) */
+.curatedDropSection {
+  background: linear-gradient(135deg, #1a0a2e 0%, #2d0b4e 40%, #1a0a2e 100%);
+  border-radius: 20px;
+  padding: var(--spacing-8);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(90, 0, 150, 0.3);
+}
+
+.curatedDropSection::before {
+  content: '';
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(147, 51, 234, 0.3) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.dropHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-6);
+  padding-bottom: var(--spacing-4);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.dropHeader h2 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #e879f9, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.timer {
+  display: flex;
+  gap: var(--spacing-2);
+  font-family: monospace;
+  font-size: 1.5rem;
+  font-weight: 900;
+  background: rgba(0,0,0,0.4);
+  border: 1px solid rgba(147, 51, 234, 0.4);
+  padding: 0.4rem 1.2rem;
+  border-radius: 999px;
+  color: #e879f9;
+  letter-spacing: 2px;
+}
+
+.horizontalScroll {
+  display: flex;
+  gap: var(--spacing-4);
+  overflow-x: auto;
+  padding-bottom: var(--spacing-4);
+  position: relative;
+  align-items: center;
+}
+
+.horizontalScroll::-webkit-scrollbar {
+  height: 6px;
+}
+.horizontalScroll::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.3);
+  border-radius: 4px;
+}
+
+.shoeCardLink {
+  text-decoration: none;
+  color: inherit;
+  flex: 0 0 180px;
+}
+
+.shoeCard {
+  background: rgba(255,255,255,0.08);
+  border-radius: 16px;
+  overflow: hidden;
+  color: #fff;
+  transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+  border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(8px);
+}
+
+.shoeCard:hover {
+  transform: translateY(-8px) scale(1.02);
+  background: rgba(255,255,255,0.15);
+  box-shadow: 0 20px 40px rgba(147, 51, 234, 0.4);
+  border-color: rgba(232, 121, 249, 0.5);
+}
+
+.shoeImageWrapper {
+  height: 160px;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.shoeImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.shoeFooter {
+  padding: var(--spacing-3);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  background: rgba(0,0,0,0.3);
+}
+
+.shoeFooter strong {
+  font-size: 0.875rem;
+  color: #fff;
+}
+
+.shoeFooter span {
+  font-size: 0.75rem;
+  color: #e879f9;
+  font-weight: 700;
+  margin-top: 4px;
+  letter-spacing: 1px;
+}
+
+.nextArrow, .dealsNextArrow {
+  background: rgba(255,255,255,0.9);
+  color: #000;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  flex-shrink: 0;
+  margin-left: var(--spacing-2);
+  transition: transform 0.2s;
+}
+
+.nextArrow:hover, .dealsNextArrow:hover {
+  transform: scale(1.1);
+}
+
+/* 3. Promo Split Banners */
+.splitBanners {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-6);
+}
+
+.splitBannerLink {
+  text-decoration: none;
+}
+
+.promoBanner {
+  height: 280px;
+  border-radius: 20px;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  padding: var(--spacing-8);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.promoBanner:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+}
+
+.promo1 {
+  background: url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&q=80') center/cover;
+}
+
+.promo2 {
+  background: url('https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800&q=80') center/cover;
+}
+
+.promoBanner::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 60%);
+  z-index: 1;
+}
+
+.promoText {
+  z-index: 2;
+  color: #fff;
+}
+
+.promoText h3 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin-bottom: var(--spacing-1);
+  letter-spacing: -0.5px;
+}
+
+.promoText p {
+  display: inline-block;
+  background: linear-gradient(90deg, #f7b500, #ff6a00);
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.95rem;
+  padding: 0.3rem 1rem;
+  border-radius: 999px;
+  margin-top: var(--spacing-2);
+}
+
+/* 4. Micro Categories */
+.microCategories {
+  display: flex;
+  gap: var(--spacing-4);
+  overflow-x: auto;
+  padding-bottom: var(--spacing-4);
+}
+
+.microCategories::-webkit-scrollbar {
+  display: none;
+}
+
+.microLink {
+  text-decoration: none;
+  color: inherit;
+  flex-shrink: 0;
+}
+
+.microCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-2);
+  width: 100px;
+  transition: transform 0.25s ease;
+}
+
+.microCard:hover {
+  transform: translateY(-6px);
+}
+
+.microCard:hover .microImageWrapper {
+  border-color: var(--accent-neon);
+  box-shadow: 0 0 20px rgba(0, 112, 243, 0.25);
+}
+
+.microCard:hover span {
+  color: var(--accent-neon);
+  font-weight: 700;
+}
+
+.microImageWrapper {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--bg-card);
+  border: 2px solid var(--border-solid);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.microImageWrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.microCard span {
+  font-size: 0.75rem;
+  text-align: center;
+  font-weight: 600;
+  color: #333;
+}
+
+/* 5. Shop for Loved Ones */
+.audienceSection {
+  margin-top: var(--spacing-4);
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: var(--spacing-6);
+}
+
+.audienceGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-6);
+}
+
+.audienceLink {
+  text-decoration: none;
+  color: inherit;
+}
+
+.audienceCard {
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.audienceCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.audienceCard img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.audienceCard:hover img {
+  transform: scale(1.05);
+}
+
+.audienceCard h3 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #fff;
+  padding: var(--spacing-6) var(--spacing-4) var(--spacing-4);
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+  letter-spacing: 1px;
+}
+
+/* 6 & 7. Deals Sections */
+.dealsContainer {
+  padding: var(--spacing-8);
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.darkDealsBg {
+  background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+  box-shadow: 0 10px 40px rgba(48, 43, 99, 0.4);
+}
+
+.lightDealsBg {
+  background: linear-gradient(135deg, #fff9e6 0%, #fff3cc 50%, #ffeaa0 100%);
+  box-shadow: 0 10px 40px rgba(247, 181, 0, 0.2);
+}
+
+.dealsTitleWhite {
+  color: #fff;
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin-bottom: var(--spacing-6);
+  letter-spacing: -0.5px;
+}
+
+.dealsTitleDark {
+  color: #1a1a1a;
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin-bottom: var(--spacing-6);
+  letter-spacing: -0.5px;
+}
+
+.dealsGrid {
+  display: flex;
+  gap: var(--spacing-4);
+  overflow-x: auto;
+  align-items: center;
+  padding-bottom: var(--spacing-2);
+}
+
+.dealsGrid::-webkit-scrollbar {
+  display: none;
+}
+
+.dealLink {
+  text-decoration: none;
+  flex: 0 0 200px;
+}
+
+.dealCard {
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fff;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.dealCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 35px rgba(0,0,0,0.2);
+}
+
+.dealImageWrapper {
+  height: 220px;
+  overflow: hidden;
+}
+
+.dealImageWrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.dealFooter, .dealFooterLight {
+  padding: var(--spacing-3);
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.dealFooter {
+  background: #463c37;
+  color: #fff;
+}
+
+.dealFooterLight {
+  background: #fff;
+  color: #000;
+}
+
+.dealFooter strong, .dealFooterLight strong {
+  font-size: 1rem;
+}
+
+.dealFooter span {
+  font-size: 0.8rem;
+  color: #ccc;
+  margin-top: 4px;
+}
+
+.dealFooterLight span {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 4px;
+}
+
+/* Responsiveness */
+@media (max-width: 1024px) {
+  .audienceGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .splitBanners {
+    grid-template-columns: 1fr;
+  }
+  
+  .audienceGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .heroContent h1 {
+    font-size: 2.5rem;
+  }
+}

@@ -1,0 +1,78 @@
+.footer {
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-solid);
+  padding: var(--spacing-16) 0 var(--spacing-8);
+  margin-top: auto;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 var(--spacing-8);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: var(--spacing-8);
+  margin-bottom: var(--spacing-12);
+}
+
+.footerLogoRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: var(--spacing-4);
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--text-primary);
+  margin-bottom: 0;
+}
+
+.description {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 300px;
+}
+
+.title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: var(--spacing-6);
+  color: var(--text-primary);
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.links a {
+  color: var(--text-secondary);
+  transition: color 0.2s ease;
+}
+
+.links a:hover {
+  color: var(--accent-neon);
+}
+
+.bottom {
+  padding-top: var(--spacing-8);
+  border-top: 1px solid var(--border-solid);
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-12);
+  }
+}
