@@ -67,9 +67,10 @@ export default function Home() {
         <section className={styles.heroGrid}>
           <div className={`${styles.heroMain} glass`}>
             <div className={styles.heroText}>
-              <span className={styles.badge}>Sale is live</span>
+              <span className={styles.heroKicker}>Nexus / 01</span>
               <h2>X-PRO Cyber Deck</h2>
-              <p>Next-gen neural interface</p>
+              <p>Next-gen neural interface, tuned for the way you work now.</p>
+              <Link href="/categories/fashion" className={styles.heroAction}>Explore the drop <span aria-hidden="true">↗</span></Link>
             </div>
           </div>
           <div className={`${styles.heroSub1} glass`}>
@@ -84,11 +85,26 @@ export default function Home() {
 
         {/* Sub Banners Row */}
         <section className={styles.subBannerRow}>
-          {[1, 2, 3, 4].map(i => (
-            <div key={i} className={`${styles.subBanner} glass glow-hover`}>
-              Special Offer #{i}
-            </div>
-          ))}
+          <Link href="/categories/fashion" className={`${styles.subBanner} glass glow-hover`}>
+            <span className={styles.subBannerNumber}>01</span>
+            <span><strong>Wear the future</strong><small>New-season fashion</small></span>
+            <span className={styles.bannerArrow} aria-hidden="true">↗</span>
+          </Link>
+          <Link href="/categories/fashion" className={`${styles.subBanner} glass glow-hover`}>
+            <span className={styles.subBannerNumber}>02</span>
+            <span><strong>Desk, upgraded</strong><small>Tools with a pulse</small></span>
+            <span className={styles.bannerArrow} aria-hidden="true">↗</span>
+          </Link>
+          <Link href="/categories/fashion" className={`${styles.subBanner} glass glow-hover`}>
+            <span className={styles.subBannerNumber}>03</span>
+            <span><strong>Made for motion</strong><small>Gear for every route</small></span>
+            <span className={styles.bannerArrow} aria-hidden="true">↗</span>
+          </Link>
+          <Link href="/categories/fashion" className={`${styles.subBanner} glass glow-hover`}>
+            <span className={styles.subBannerNumber}>04</span>
+            <span><strong>Small luxuries</strong><small>Daily upgrades</small></span>
+            <span className={styles.bannerArrow} aria-hidden="true">↗</span>
+          </Link>
         </section>
 
         {/* Spotlight's On Section */}

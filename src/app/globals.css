@@ -1,17 +1,17 @@
 :root {
   /* Premium Futuristic Identity Colors (Light Theme) */
-  --bg-primary: #f8fafc;
-  --bg-secondary: #ffffff;
-  --bg-card: rgba(255, 255, 255, 0.8);
-  --border-glow: rgba(0, 112, 243, 0.3);
-  --border-solid: #e2e8f0;
+  --bg-primary: #f4f2eb;
+  --bg-secondary: #fffdf8;
+  --bg-card: rgba(255, 253, 248, 0.86);
+  --border-glow: rgba(227, 93, 63, 0.3);
+  --border-solid: #dedbd0;
   
-  --text-primary: #0f172a;
-  --text-secondary: #64748b;
+  --text-primary: #18231d;
+  --text-secondary: #68736c;
   
-  --accent-neon: #0070f3;
-  --accent-purple: #7928ca;
-  --accent-pink: #ff0080;
+  --accent-neon: #e35d3f;
+  --accent-purple: #0b7285;
+  --accent-pink: #f1a208;
   
   /* Radii */
   --radius-sm: 8px;
@@ -41,9 +41,19 @@ body {
   overflow-x: hidden;
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: "Avenir Next", "Trebuchet MS", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body:has(.pageWrapper) > header,
+body:has(.pageWrapper) > footer {
+  display: none;
+}
+
+body:has(.pageWrapper) main {
+  padding-top: 0 !important;
+  min-height: 100vh !important;
 }
 
 a {

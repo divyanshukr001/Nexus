@@ -1,0 +1,162 @@
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.pageWrapper {
+  min-height: 100vh;
+  display: flex;
+  background: #f4f7fb;
+}
+
+.visualPanel {
+  position: relative;
+  flex: 0 0 45%;
+  min-height: 100vh;
+  overflow: hidden;
+  color: #fff;
+  background: #092844 url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1400&q=85') center / cover no-repeat;
+}
+
+.visualTint {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(145deg, rgba(5, 25, 48, .9), rgba(9, 63, 106, .45) 58%, rgba(7, 29, 47, .82));
+}
+
+.visualContent {
+  position: relative;
+  z-index: 1;
+  max-width: 570px;
+  padding: clamp(2rem, 7vw, 6rem);
+  padding-top: clamp(8rem, 22vh, 13rem);
+  animation: riseIn .7s ease-out both;
+}
+
+.kicker, .visualMeta {
+  color: #8ed8ff;
+  font-size: .7rem;
+  font-weight: 800;
+  letter-spacing: .2em;
+}
+
+.visualContent h2 {
+  margin: 1.5rem 0 1.25rem;
+  font-size: clamp(2.6rem, 4.3vw, 4.5rem);
+  line-height: 1.02;
+  letter-spacing: -.04em;
+}
+
+.visualContent h2 em {
+  color: #8ed8ff;
+  font-family: Georgia, serif;
+  font-weight: 400;
+}
+
+.visualContent p {
+  max-width: 390px;
+  color: rgba(255,255,255,.8);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.visualRule {
+  width: 58px;
+  height: 2px;
+  margin: 2rem 0 1.2rem;
+  background: #8ed8ff;
+}
+
+.formPanel {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem clamp(1.5rem, 5vw, 5rem);
+}
+
+.formContainer {
+  width: 100%;
+  max-width: 470px;
+  animation: riseIn .6s .1s ease-out both;
+}
+
+.brandSection { text-align: center; margin-bottom: 2rem; }
+.brandLogo {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 1.5rem;
+  color: #0070f3;
+  font-size: 1.65rem;
+  font-weight: 900;
+  letter-spacing: .15em;
+}
+.logoImg { border-radius: 8px; object-fit: contain; }
+.brandSection h1 { margin-bottom: .45rem; color: #0f172a; font-size: 2rem; letter-spacing: -.04em; }
+.brandSection p { color: #64748b; font-size: .95rem; }
+
+.formCard {
+  padding: 2rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, .08);
+}
+.form { display: flex; flex-direction: column; gap: 1.2rem; }
+.inputGroup { display: flex; flex-direction: column; gap: .45rem; }
+.inputGroup label, .labelRow label { color: #0f172a; font-size: .82rem; font-weight: 700; }
+.labelRow { display: flex; align-items: center; justify-content: space-between; }
+.forgotLink { color: #0070f3; font-size: .78rem; font-weight: 700; }
+.forgotLink:hover, .footerLink a:hover { text-decoration: underline; }
+.inputWrapper { position: relative; display: flex; align-items: center; }
+.inputIcon { position: absolute; left: 14px; display: flex; color: #64748b; pointer-events: none; }
+.inputWrapper input {
+  width: 100%;
+  padding: .85rem 2.8rem .85rem 2.75rem;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 9px;
+  outline: none;
+  background: #f8fafc;
+  color: #0f172a;
+  font: inherit;
+  font-size: .92rem;
+  transition: .2s ease;
+}
+.inputWrapper input::placeholder { color: #94a3b8; }
+.inputWrapper input:focus { border-color: #0070f3; background: #fff; box-shadow: 0 0 0 3px rgba(0,112,243,.1); }
+.inputWrapper:focus-within .inputIcon { color: #0070f3; }
+.inputWrapper.inputError input { border-color: #ef4444; }
+.errorMessage { color: #dc2626; font-size: .76rem; font-weight: 600; }
+.passwordToggle { position: absolute; right: 12px; display: flex; padding: 4px; border: 0; background: none; color: #64748b; cursor: pointer; }
+.passwordToggle:hover { color: #0070f3; }
+.rememberRow { display: flex; align-items: center; gap: .55rem; color: #64748b; font-size: .82rem; cursor: pointer; }
+.rememberRow input { position: absolute; opacity: 0; }
+.checkboxCustom { width: 18px; height: 18px; border: 1.5px solid #cbd5e1; border-radius: 5px; background: #fff; }
+.rememberRow input:checked + .checkboxCustom { border-color: #0070f3; background: #0070f3; box-shadow: inset 0 0 0 4px #fff; }
+.submitButton, .googleButton, .successButton { width: 100%; display: flex; align-items: center; justify-content: center; gap: .55rem; border-radius: 9px; font: inherit; font-weight: 750; cursor: pointer; transition: .25s ease; }
+.submitButton { padding: .95rem; border: 0; background: #0070f3; color: #fff; box-shadow: 0 8px 18px rgba(0,112,243,.22); }
+.submitButton:hover:not(:disabled) { transform: translateY(-2px); background: #005dcc; box-shadow: 0 12px 24px rgba(0,112,243,.3); }
+.submitButton:disabled { opacity: .7; cursor: wait; }
+.loader { width: 18px; height: 18px; border: 2px solid rgba(255,255,255,.35); border-top-color: #fff; border-radius: 50%; animation: spin .7s linear infinite; }
+.divider { display: flex; align-items: center; gap: .8rem; color: #94a3b8; }
+.divider span { flex: 1; height: 1px; background: #e2e8f0; }
+.divider small { font-size: .74rem; white-space: nowrap; }
+.googleButton { padding: .85rem; border: 1.5px solid #e2e8f0; background: #fff; color: #0f172a; font-size: .9rem; }
+.googleButton:hover { border-color: #b9c5d3; background: #f8fafc; transform: translateY(-1px); }
+.googleIcon { width: 19px; height: 19px; }
+.footerLink { margin-top: 1.5rem; text-align: center; color: #64748b; font-size: .88rem; }
+.footerLink a { margin-left: .25rem; color: #0070f3; font-weight: 750; }
+
+.successOverlay { position: fixed; inset: 0; z-index: 10; display: flex; align-items: center; justify-content: center; padding: 1.5rem; background: rgba(5,25,48,.45); backdrop-filter: blur(8px); }
+.successCard { width: min(100%, 380px); padding: 2.5rem; border-radius: 18px; background: #fff; text-align: center; box-shadow: 0 25px 60px rgba(15,23,42,.2); animation: riseIn .35s ease-out; }
+.successIcon { width: 64px; height: 64px; display: grid; place-items: center; margin: 0 auto 1.2rem; border-radius: 50%; background: #10b981; color: #fff; font-size: 2rem; font-weight: 800; }
+.successCard h2 { margin-bottom: .5rem; color: #0f172a; }
+.successCard p { margin-bottom: 1.5rem; color: #64748b; line-height: 1.5; }
+.successButton { padding: .85rem; background: #0070f3; color: #fff; }
+
+@media (max-width: 1024px) { .visualPanel { display: none; } .formPanel { min-height: 100vh; } }
+@media (max-width: 520px) { .formPanel { align-items: flex-start; padding: 2.5rem 1rem; } .formCard { padding: 1.35rem; } .brandSection h1 { font-size: 1.7rem; } }
+@media (prefers-reduced-motion: reduce) { .pageWrapper, .pageWrapper :global(*), .pageWrapper :global(*::before), .pageWrapper :global(*::after) { animation-duration: .01ms !important; transition-duration: .01ms !important; } }

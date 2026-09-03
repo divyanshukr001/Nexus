@@ -1,0 +1,817 @@
+/* ========================================
+   NEXUS Sign Up Page — Premium Auth Design
+   ======================================== */
+
+/* ---------- Animations ---------- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes spinLoader {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes strengthPulse {
+  0%, 100% { box-shadow: none; }
+  50% { box-shadow: 0 0 8px currentColor; }
+}
+
+/* ---------- Page Layout ---------- */
+.pageWrapper {
+  display: flex;
+  min-height: 100vh;
+  background: #f4f7fb;
+}
+
+/* ---------- Visual Panel (Desktop) ---------- */
+.visualPanel {
+  flex: 0 0 45%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  background: #0d2744 url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1400&q=85') center / cover no-repeat;
+}
+
+.visualOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(145deg, rgba(5, 25, 48, 0.88), rgba(9, 63, 106, 0.48) 55%, rgba(7, 29, 47, 0.78));
+  z-index: 1;
+}
+
+.visualContent {
+  position: relative;
+  z-index: 2;
+  text-align: left;
+  color: #fff;
+  padding: clamp(2rem, 6vw, 5rem);
+  max-width: 620px;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.visualLogo {
+  font-size: 1.1rem;
+  font-weight: 900;
+  letter-spacing: 0.22em;
+  margin-bottom: var(--spacing-4);
+  color: #8ed8ff;
+}
+
+.visualHeading {
+  font-size: clamp(2rem, 3.2vw, 3.25rem);
+  font-weight: 700;
+  line-height: 1.08;
+  margin-bottom: var(--spacing-4);
+  letter-spacing: -0.03em;
+}
+
+.visualSubtext {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 2.25rem;
+  max-width: 460px;
+}
+
+/* Floating shape decorations */
+.floatingShapes {
+  display: none;
+}
+
+.shape {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.12;
+  background: #fff;
+}
+
+.shape1 {
+  width: 200px;
+  height: 200px;
+  top: 10%;
+  left: -40px;
+  animation: float 6s ease-in-out infinite;
+}
+
+.shape2 {
+  width: 120px;
+  height: 120px;
+  bottom: 15%;
+  right: 10%;
+  animation: float 8s ease-in-out infinite 1s;
+}
+
+.shape3 {
+  width: 80px;
+  height: 80px;
+  top: 50%;
+  right: -20px;
+  animation: float 5s ease-in-out infinite 2s;
+}
+
+.shape4 {
+  width: 160px;
+  height: 160px;
+  bottom: -30px;
+  left: 20%;
+  animation: float 7s ease-in-out infinite 0.5s;
+  border-radius: 30%;
+  transform: rotate(45deg);
+}
+
+/* Feature cards on visual panel */
+.featureList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: var(--spacing-3) var(--spacing-4);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.featureItem:hover {
+  transform: translateX(6px);
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.featureIcon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+}
+
+/* ---------- Form Panel ---------- */
+.formPanel {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem clamp(1.5rem, 5vw, 5rem);
+  position: relative;
+  overflow-y: auto;
+}
+
+.formContainer {
+  width: 100%;
+  max-width: 500px;
+  animation: scaleIn 0.6s ease-out;
+}
+
+/* Brand logo section */
+.brandSection {
+  text-align: center;
+  margin-bottom: var(--spacing-6);
+}
+
+.brandLogo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: var(--spacing-4);
+}
+
+.logoImg {
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+.brandName {
+  font-size: 1.75rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  background: linear-gradient(135deg, var(--accent-neon) 0%, var(--accent-purple) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.formTitle {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-2);
+}
+
+.formSubtitle {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ---------- Form Card ---------- */
+.formCard {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-solid);
+  border-radius: 18px;
+  padding: var(--spacing-8);
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.04),
+    0 10px 15px -3px rgba(0, 0, 0, 0.06);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+/* ---------- Input Groups ---------- */
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.inputLabel {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.inputIcon {
+  position: absolute;
+  left: 14px;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  transition: color 0.2s ease;
+  z-index: 1;
+}
+
+.input {
+  width: 100%;
+  padding: 0.825rem 1rem 0.825rem 2.75rem;
+  background: var(--bg-primary);
+  border: 1.5px solid var(--border-solid);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 0.925rem;
+  transition: all 0.25s ease;
+  outline: none;
+}
+
+.input::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.6;
+}
+
+.input:hover {
+  border-color: #c4cdd5;
+}
+
+.input:focus {
+  border-color: var(--accent-neon);
+  box-shadow: 0 0 0 3px rgba(0, 112, 243, 0.1);
+  background: var(--bg-secondary);
+}
+
+.inputFocused .inputIcon {
+  color: var(--accent-neon);
+}
+
+.inputError .input {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.08);
+}
+
+.inputError .inputIcon {
+  color: #ef4444;
+}
+
+.inputSuccess .input {
+  border-color: #10b981;
+}
+
+.inputSuccess .inputIcon {
+  color: #10b981;
+}
+
+/* Password visibility toggle */
+.passwordToggle {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  z-index: 1;
+}
+
+.passwordToggle:hover {
+  color: var(--accent-neon);
+  background: rgba(0, 112, 243, 0.06);
+}
+
+/* ---------- Error Messages ---------- */
+.errorMessage {
+  font-size: 0.78rem;
+  color: #ef4444;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  animation: fadeInUp 0.2s ease-out;
+  margin-top: 2px;
+}
+
+.errorDot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #ef4444;
+  flex-shrink: 0;
+}
+
+/* ---------- Password Strength ---------- */
+.strengthContainer {
+  margin-top: 4px;
+}
+
+.strengthBar {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.strengthSegment {
+  flex: 1;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--border-solid);
+  transition: all 0.35s ease;
+  overflow: hidden;
+}
+
+.strengthSegment.active {
+  animation: strengthPulse 1.5s ease-in-out;
+}
+
+.strengthWeak .active {
+  background: #ef4444;
+}
+
+.strengthFair .active {
+  background: #f59e0b;
+}
+
+.strengthGood .active {
+  background: #3b82f6;
+}
+
+.strengthStrong .active {
+  background: #10b981;
+}
+
+.strengthLabel {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.strengthWeak .strengthLabel {
+  color: #ef4444;
+}
+
+.strengthFair .strengthLabel {
+  color: #f59e0b;
+}
+
+.strengthGood .strengthLabel {
+  color: #3b82f6;
+}
+
+.strengthStrong .strengthLabel {
+  color: #10b981;
+}
+
+/* ---------- Checkbox ---------- */
+.checkboxGroup {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-2);
+  cursor: pointer;
+}
+
+.checkboxInput {
+  display: none;
+}
+
+.checkboxCustom {
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  border: 2px solid var(--border-solid);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  margin-top: 1px;
+  background: var(--bg-primary);
+}
+
+.checkboxInput:checked + .checkboxCustom {
+  background: var(--accent-neon);
+  border-color: var(--accent-neon);
+}
+
+.checkboxLabel {
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.checkboxLink {
+  color: var(--accent-neon);
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.checkboxLink:hover {
+  color: var(--accent-purple);
+  text-decoration: underline;
+}
+
+.checkboxLink:focus-visible,
+.passwordToggle:focus-visible,
+.submitButton:focus-visible,
+.googleButton:focus-visible,
+.signInLink:focus-visible {
+  outline: 3px solid rgba(0, 112, 243, 0.28);
+  outline-offset: 3px;
+}
+
+.checkboxError .checkboxCustom {
+  border-color: #ef4444;
+}
+
+/* ---------- Submit Button ---------- */
+.submitButton {
+  width: 100%;
+  padding: 0.9rem 1.5rem;
+  background: linear-gradient(135deg, var(--accent-neon) 0%, #005cc8 100%);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  letter-spacing: 0.02em;
+  margin-top: var(--spacing-2);
+}
+
+.submitButton::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.15) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.submitButton:hover:not(:disabled)::before {
+  opacity: 1;
+}
+
+.submitButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 112, 243, 0.35);
+}
+
+.submitButton:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(0, 112, 243, 0.25);
+}
+
+.submitButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.buttonLoader {
+  width: 20px;
+  height: 20px;
+  border: 2.5px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spinLoader 0.7s linear infinite;
+}
+
+/* ---------- Divider ---------- */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  margin: var(--spacing-2) 0;
+}
+
+.dividerLine {
+  flex: 1;
+  height: 1px;
+  background: var(--border-solid);
+}
+
+.dividerText {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* ---------- Google Button ---------- */
+.googleButton {
+  width: 100%;
+  padding: 0.825rem 1.5rem;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1.5px solid var(--border-solid);
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 0.925rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-3);
+}
+
+.googleButton:hover {
+  border-color: #c4cdd5;
+  background: var(--bg-secondary);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transform: translateY(-1px);
+}
+
+.googleButton:active {
+  transform: translateY(0);
+}
+
+.googleIcon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+/* ---------- Footer Link ---------- */
+.footerLink {
+  text-align: center;
+  margin-top: var(--spacing-6);
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.signInLink {
+  color: var(--accent-neon);
+  font-weight: 700;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  margin-left: 4px;
+}
+
+.signInLink:hover {
+  color: var(--accent-purple);
+  text-decoration: underline;
+}
+
+/* ---------- Success State ---------- */
+.successOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeInUp 0.3s ease-out;
+}
+
+.successCard {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-12);
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+  animation: scaleIn 0.4s ease-out;
+}
+
+.successIcon {
+  width: 72px;
+  height: 72px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--spacing-4);
+}
+
+.successTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-2);
+}
+
+.successText {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ---------- Row Layout ---------- */
+.inputRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-4);
+}
+
+/* ============================
+   RESPONSIVE BREAKPOINTS
+   ============================ */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .visualPanel {
+    display: none;
+  }
+
+  .formPanel {
+    flex: 1;
+    padding: var(--spacing-6);
+  }
+
+  .pageWrapper {
+    background: linear-gradient(
+      180deg,
+      rgba(0, 112, 243, 0.03) 0%,
+      var(--bg-primary) 40%
+    );
+  }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .formPanel {
+    padding: var(--spacing-4);
+    align-items: flex-start;
+    padding-top: var(--spacing-8);
+  }
+
+  .formCard {
+    padding: var(--spacing-6);
+    border-radius: var(--radius-sm);
+  }
+
+  .formContainer {
+    max-width: 520px;
+  }
+
+  .formTitle {
+    font-size: 1.5rem;
+  }
+
+  .brandName {
+    font-size: 1.5rem;
+  }
+
+  .inputRow {
+    grid-template-columns: 1fr;
+  }
+
+  .input {
+    padding: 0.75rem 1rem 0.75rem 2.6rem;
+    font-size: 0.875rem;
+  }
+
+  .submitButton {
+    padding: 0.825rem 1.25rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 380px) {
+  .formPanel {
+    padding: var(--spacing-3);
+    padding-top: var(--spacing-6);
+  }
+
+  .formCard {
+    padding: var(--spacing-4);
+  }
+
+  .brandSection {
+    margin-bottom: var(--spacing-4);
+  }
+}

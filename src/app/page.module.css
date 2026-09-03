@@ -111,13 +111,53 @@
 }
 
 .heroText h2 {
-  font-size: 3rem;
+  max-width: 560px;
+  font-size: clamp(2.5rem, 5vw, 4.75rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
   margin-bottom: var(--spacing-2);
 }
 
 .heroText p {
-  font-size: 1.25rem;
+  max-width: 390px;
+  font-size: 1.1rem;
+  line-height: 1.5;
   color: rgba(255, 255, 255, 0.9);
+}
+
+.heroKicker {
+  color: #f5c451;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: var(--spacing-4);
+  display: block;
+}
+
+.heroAction {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  margin-top: var(--spacing-6);
+  padding: 0.8rem 1rem;
+  background: #f5c451;
+  color: #18231d;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  font-weight: 800;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.heroAction:hover {
+  background: #fff1c5;
+  transform: translateY(-2px);
+}
+
+.heroAction:focus-visible,
+.subBanner:focus-visible {
+  outline: 3px solid #f5c451;
+  outline-offset: 3px;
 }
 
 .badge {
@@ -173,11 +213,41 @@
   border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: var(--spacing-3);
+  padding: var(--spacing-4);
+  color: var(--text-primary);
   font-weight: 600;
   background: var(--bg-card);
   border: 1px solid var(--border-solid);
   cursor: pointer;
+}
+
+.subBannerNumber {
+  color: var(--accent-neon);
+  font-size: 0.75rem;
+  font-weight: 800;
+  align-self: flex-start;
+}
+
+.subBanner strong,
+.subBanner small {
+  display: block;
+}
+
+.subBanner strong {
+  font-size: 0.95rem;
+  margin-bottom: var(--spacing-1);
+}
+
+.subBanner small {
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+}
+
+.bannerArrow {
+  margin-left: auto;
+  color: var(--accent-neon);
+  font-size: 1.25rem;
 }
 
 /* Curated Sections (Spotlight, Trends, Deals) */
