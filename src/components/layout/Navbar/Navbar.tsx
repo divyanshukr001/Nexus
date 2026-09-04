@@ -41,7 +41,9 @@ export const Navbar = () => {
           <li><Link href="/sellers">Top Sellers</Link></li>
           <li><Link href="/cart">Cart (0)</Link></li>
           <li>
-            <Button variant="glow" size="sm">Sign In</Button>
+            <Link href="/signin" tabIndex={-1}>
+              <Button variant="glow" size="sm">Sign In</Button>
+            </Link>
           </li>
         </ul>
       </div>
