@@ -815,3 +815,23 @@
     margin-bottom: var(--spacing-4);
   }
 }
+
+.bannerAlert {
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  margin-bottom: 1.25rem;
+}
+
+.errorAlert {
+  background: #fef2f2;
+  border: 1px solid #fca5a5;
+  color: #b91c1c;
+}
+
+.setupAlert {
+  background: #fffbeb;
+  border: 1px solid #fcd34d;
+  color: #92400e;
+}

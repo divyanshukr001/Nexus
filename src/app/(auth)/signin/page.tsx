@@ -1,9 +1,11 @@
 'use client';
 
-import { useState, type FormEvent, type ChangeEvent } from 'react';
+import { useState, useEffect, Suspense, type FormEvent, type ChangeEvent } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter, useSearchParams } from 'next/navigation';
 import styles from './signin.module.css';
+import { useAuth } from '@/context/AuthContext';
 
 interface FormData {
   email: string;
@@ -32,14 +34,18 @@ const LockIcon = () => (
 
 const EyeIcon = ({ hidden }: { hidden: boolean }) => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    {hidden ? <>
-      <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" />
-      <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" />
-      <line x1="1" y1="1" x2="23" y2="23" />
-    </> : <>
-      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-      <circle cx="12" cy="12" r="3" />
-    </>}
+    {hidden ? (
+      <>
+        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" />
+        <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" />
+        <line x1="1" y1="1" x2="23" y2="23" />
+      </>
+    ) : (
+      <>
+        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+        <circle cx="12" cy="12" r="3" />
+      </>
+    )}
   </svg>
 );
 
@@ -52,18 +58,31 @@ const GoogleIcon = () => (
   </svg>
 );
 
-export default function SignInPage() {
+function SignInFormContent() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get('redirect') || '/';
+
+  const { user, signIn, signInWithGoogle, isConfigured } = useAuth();
   const [formData, setFormData] = useState<FormData>({ email: '', password: '', remember: false });
   const [errors, setErrors] = useState<FormErrors>({});
+  const [authError, setAuthError] = useState<string | null>(null);
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
+
+  // If already logged in, go direct to homepage
+  useEffect(() => {
+    if (user) {
+      router.replace('/');
+    }
+  }, [user, router]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value, checked, type } = event.target;
     setFormData(previous => ({ ...previous, [name]: type === 'checkbox' ? checked : value }));
     setErrors(previous => ({ ...previous, [name]: undefined }));
+    setAuthError(null);
   };
 
   const validate = () => {
@@ -80,9 +99,31 @@ export default function SignInPage() {
     event.preventDefault();
     if (!validate()) return;
     setIsLoading(true);
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    setIsLoading(false);
-    setShowSuccess(true);
+    setAuthError(null);
+
+    const { error } = await signIn({
+      email: formData.email,
+      password: formData.password,
+    });
+
+    if (error) {
+      setIsLoading(false);
+      setAuthError(error);
+      return;
+    }
+
+    // Go directly to homepage
+    router.push('/');
+    router.refresh();
+  };
+
+  const handleGoogleSignIn = async () => {
+    setIsLoading(true);
+    const { error } = await signInWithGoogle();
+    if (error) {
+      setAuthError(error);
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -110,12 +151,28 @@ export default function SignInPage() {
           </header>
 
           <div className={styles.formCard}>
+
+            {authError && (
+              <div className={`${styles.bannerAlert} ${styles.errorAlert}`}>
+                ⚠️ {authError}
+              </div>
+            )}
+
             <form className={styles.form} onSubmit={handleSubmit} noValidate>
               <div className={styles.inputGroup}>
                 <label htmlFor="signin-email">Email Address</label>
                 <div className={`${styles.inputWrapper} ${errors.email && touched.email ? styles.inputError : ''}`}>
                   <span className={styles.inputIcon}><MailIcon /></span>
-                  <input id="signin-email" type="email" name="email" placeholder="you@example.com" value={formData.email} onChange={handleChange} onBlur={() => setTouched(previous => ({ ...previous, email: true }))} autoComplete="email" />
+                  <input
+                    id="signin-email"
+                    type="email"
+                    name="email"
+                    placeholder="you@example.com"
+                    value={formData.email}
+                    onChange={handleChange}
+                    onBlur={() => setTouched(previous => ({ ...previous, email: true }))}
+                    autoComplete="email"
+                  />
                 </div>
                 {errors.email && touched.email && <span className={styles.errorMessage}>{errors.email}</span>}
               </div>
@@ -127,8 +184,22 @@ export default function SignInPage() {
                 </div>
                 <div className={`${styles.inputWrapper} ${errors.password && touched.password ? styles.inputError : ''}`}>
                   <span className={styles.inputIcon}><LockIcon /></span>
-                  <input id="signin-password" type={showPassword ? 'text' : 'password'} name="password" placeholder="Enter your password" value={formData.password} onChange={handleChange} onBlur={() => setTouched(previous => ({ ...previous, password: true }))} autoComplete="current-password" />
-                  <button type="button" className={styles.passwordToggle} onClick={() => setShowPassword(previous => !previous)} aria-label={showPassword ? 'Hide password' : 'Show password'}>
+                  <input
+                    id="signin-password"
+                    type={showPassword ? 'text' : 'password'}
+                    name="password"
+                    placeholder="Enter your password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    onBlur={() => setTouched(previous => ({ ...previous, password: true }))}
+                    autoComplete="current-password"
+                  />
+                  <button
+                    type="button"
+                    className={styles.passwordToggle}
+                    onClick={() => setShowPassword(previous => !previous)}
+                    aria-label={showPassword ? 'Hide password' : 'Show password'}
+                  >
                     <EyeIcon hidden={showPassword} />
                   </button>
                 </div>
@@ -136,7 +207,12 @@ export default function SignInPage() {
               </div>
 
               <label className={styles.rememberRow}>
-                <input type="checkbox" name="remember" checked={formData.remember} onChange={handleChange} />
+                <input
+                  type="checkbox"
+                  name="remember"
+                  checked={formData.remember}
+                  onChange={handleChange}
+                />
                 <span className={styles.checkboxCustom} aria-hidden="true" />
                 <span>Remember me</span>
               </label>
@@ -146,24 +222,28 @@ export default function SignInPage() {
               </button>
 
               <div className={styles.divider}><span /> <small>or continue with</small> <span /></div>
-              <button type="button" className={styles.googleButton}><GoogleIcon /> Continue with Google</button>
+              <button
+                type="button"
+                className={styles.googleButton}
+                onClick={handleGoogleSignIn}
+                disabled={isLoading}
+              >
+                <GoogleIcon /> Continue with Google
+              </button>
             </form>
           </div>
 
           <p className={styles.footerLink}>New to NEXUS? <Link href="/signup">Create an account</Link></p>
         </div>
       </main>
-
-      {showSuccess && (
-        <div className={styles.successOverlay} role="dialog" aria-modal="true" aria-labelledby="signin-success-title" onClick={() => setShowSuccess(false)}>
-          <div className={styles.successCard} onClick={event => event.stopPropagation()}>
-            <div className={styles.successIcon}>✓</div>
-            <h2 id="signin-success-title">You&apos;re signed in</h2>
-            <p>Welcome back to NEXUS. Your account is ready to explore.</p>
-            <Link href="/" className={styles.successButton}>Continue shopping</Link>
-          </div>
-        </div>
-      )}
     </div>
+  );
+}
+
+export default function SignInPage() {
+  return (
+    <Suspense fallback={<div className={styles.pageWrapper} />}>
+      <SignInFormContent />
+    </Suspense>
   );
 }

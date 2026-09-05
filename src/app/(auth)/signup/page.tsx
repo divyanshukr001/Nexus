@@ -3,7 +3,9 @@
 import { useState, useCallback, type FormEvent, type ChangeEvent } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import styles from './signup.module.css';
+import { useAuth } from '@/context/AuthContext';
 
 /* ──────────────────────────────────────────────
    Types
@@ -127,6 +129,7 @@ const SuccessCheckIcon = () => (
    Main Component
    ────────────────────────────────────────────── */
 export default function SignUpPage() {
+  const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
     fullName: '',
     email: '',
@@ -137,6 +140,8 @@ export default function SignUpPage() {
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
+  const [authError, setAuthError] = useState<string | null>(null);
+  const [needsConfirmation, setNeedsConfirmation] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -144,6 +149,7 @@ export default function SignUpPage() {
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [touchedFields, setTouchedFields] = useState<Set<string>>(new Set());
 
+  const { signUp, signInWithGoogle, isConfigured } = useAuth();
   const passwordStrength = getPasswordStrength(formData.password);
 
   /* ── Field Change Handler ── */
@@ -158,6 +164,7 @@ export default function SignUpPage() {
     if (errors[name as keyof FormErrors]) {
       setErrors(prev => ({ ...prev, [name]: undefined }));
     }
+    setAuthError(null);
   }, [errors]);
 
   /* ── Blur Handler (field-level validation) ── */
@@ -226,13 +233,42 @@ export default function SignUpPage() {
     if (!validateForm()) return;
 
     setIsLoading(true);
+    setAuthError(null);
 
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    const { error, needsEmailConfirmation } = await signUp({
+      email: formData.email,
+      password: formData.password,
+      fullName: formData.fullName,
+      phone: formData.phone,
+    });
 
     setIsLoading(false);
+
+    if (error) {
+      setAuthError(error);
+      return;
+    }
+
+    if (needsEmailConfirmation) {
+      setNeedsConfirmation(true);
+    }
     setShowSuccess(true);
-  }, [validateForm]);
+    if (!needsEmailConfirmation) {
+      setTimeout(() => {
+        router.push('/');
+      }, 1500);
+    }
+  }, [validateForm, signUp, formData, router]);
+
+  const handleGoogleSignUp = async () => {
+    setIsLoading(true);
+    setAuthError(null);
+    const { error } = await signInWithGoogle();
+    if (error) {
+      setAuthError(error);
+      setIsLoading(false);
+    }
+  };
 
   /* ── Helper: get input group class ── */
   const getInputGroupClass = (fieldName: string) => {
@@ -307,6 +343,13 @@ export default function SignUpPage() {
 
           {/* Form Card */}
           <div className={styles.formCard}>
+
+            {authError && (
+              <div className={`${styles.bannerAlert} ${styles.errorAlert}`}>
+                ⚠️ {authError}
+              </div>
+            )}
+
             <form className={styles.form} onSubmit={handleSubmit} noValidate>
 
               {/* Full Name */}
@@ -541,6 +584,8 @@ export default function SignUpPage() {
                 type="button"
                 className={styles.googleButton}
                 id="signup-google"
+                onClick={handleGoogleSignUp}
+                disabled={isLoading}
               >
                 <GoogleIcon />
                 Sign up with Google
@@ -565,11 +610,23 @@ export default function SignUpPage() {
             <div className={styles.successIcon}>
               <SuccessCheckIcon />
             </div>
-            <h3 className={styles.successTitle}>Account Created!</h3>
+            <h3 className={styles.successTitle}>
+              {needsConfirmation ? 'Check Your Email' : 'Account Created!'}
+            </h3>
             <p className={styles.successText}>
-              Welcome to NEXUS! Your account has been created successfully.
-              Get ready to explore extraordinary products.
+              {needsConfirmation ? (
+                <>
+                  We sent a confirmation link to <strong>{formData.email}</strong>. Please check your inbox to activate your NEXUS account.
+                </>
+              ) : (
+                'Welcome to NEXUS! Your account has been created successfully. Redirecting to marketplace...'
+              )}
             </p>
+            {needsConfirmation && (
+              <Link href="/signin" className={styles.submitButton} style={{ marginTop: '1rem', textDecoration: 'none', display: 'flex', justifyContent: 'center' }}>
+                Go to Sign In
+              </Link>
+            )}
           </div>
         </div>
       )}

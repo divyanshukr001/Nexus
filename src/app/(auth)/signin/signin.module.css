@@ -140,6 +140,23 @@
 .submitButton { padding: .95rem; border: 0; background: #0070f3; color: #fff; box-shadow: 0 8px 18px rgba(0,112,243,.22); }
 .submitButton:hover:not(:disabled) { transform: translateY(-2px); background: #005dcc; box-shadow: 0 12px 24px rgba(0,112,243,.3); }
 .submitButton:disabled { opacity: .7; cursor: wait; }
+.bannerAlert {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  margin-bottom: 1rem;
+}
+.errorAlert {
+  background: #fef2f2;
+  border: 1px solid #fca5a5;
+  color: #b91c1c;
+}
+.setupAlert {
+  background: #fffbeb;
+  border: 1px solid #fcd34d;
+  color: #92400e;
+}
 .loader { width: 18px; height: 18px; border: 2px solid rgba(255,255,255,.35); border-top-color: #fff; border-radius: 50%; animation: spin .7s linear infinite; }
 .divider { display: flex; align-items: center; gap: .8rem; color: #94a3b8; }
 .divider span { flex: 1; height: 1px; background: #e2e8f0; }
